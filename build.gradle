@@ -1,0 +1,37 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'moor.example'
+version = '0.0.1'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+	compile group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '4.1.2'
+	compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.1.2.RELEASE'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.2-groovy-2.5'
+}
+
+bootRun {
+	environment SPRING_PROFILES_ACTIVE: environment.SPRING_PROFILES_ACTIVE ?: "local"
+}
